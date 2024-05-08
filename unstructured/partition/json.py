@@ -19,7 +19,7 @@ from unstructured.file_utils.filetype import (
     add_metadata_with_filetype,
     is_json_processable,
 )
-from unstructured.partition.common import (
+from unstructured.partition.utils.common import (
     exactly_one,
     get_last_modified_date,
     get_last_modified_date_from_file,
@@ -32,6 +32,7 @@ from unstructured.staging.base import elements_from_dicts
 @add_chunking_strategy
 def partition_json(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     text: Optional[str] = None,
     include_metadata: bool = True,

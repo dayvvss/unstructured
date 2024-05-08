@@ -5,12 +5,12 @@ from typing import Any, Optional
 from unstructured.chunking import add_chunking_strategy
 from unstructured.documents.elements import Element, process_metadata
 from unstructured.file_utils.filetype import add_metadata
-from unstructured.partition.common import exactly_one
-from unstructured.partition.lang import (
+from unstructured.partition.pdf import partition_pdf_or_image
+from unstructured.partition.utils.common import exactly_one
+from unstructured.partition.utils.constants import PartitionStrategy
+from unstructured.partition.utils.lang import (
     check_language_args,
 )
-from unstructured.partition.pdf import partition_pdf_or_image
-from unstructured.partition.utils.constants import PartitionStrategy
 
 
 @process_metadata()
@@ -18,6 +18,7 @@ from unstructured.partition.utils.constants import PartitionStrategy
 @add_chunking_strategy
 def partition_image(
     filename: str = "",
+    *,
     file: Optional[bytes] = None,
     include_page_breaks: bool = False,
     infer_table_structure: bool = False,
@@ -25,7 +26,6 @@ def partition_image(
     languages: Optional[list[str]] = None,
     strategy: str = PartitionStrategy.HI_RES,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     hi_res_model_name: Optional[str] = None,
     extract_images_in_pdf: bool = False,
     extract_image_block_types: Optional[list[str]] = None,

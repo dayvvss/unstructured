@@ -14,12 +14,12 @@ DETECTION_ORIGIN: str = "org"
 @add_chunking_strategy
 def partition_org(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     include_page_breaks: bool = False,
     include_metadata: bool = True,
     metadata_filename: Optional[str] = None,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     languages: Optional[list[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,

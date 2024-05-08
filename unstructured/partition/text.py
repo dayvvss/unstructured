@@ -28,13 +28,13 @@ from unstructured.file_utils.encoding import read_txt_file
 from unstructured.file_utils.filetype import FileType, add_metadata_with_filetype
 from unstructured.nlp.patterns import PARAGRAPH_PATTERN, UNICODE_BULLETS_RE
 from unstructured.nlp.tokenize import sent_tokenize
-from unstructured.partition.common import (
+from unstructured.partition.utils.common import (
     exactly_one,
     get_last_modified_date,
     get_last_modified_date_from_file,
 )
-from unstructured.partition.lang import apply_lang_metadata
-from unstructured.partition.text_type import (
+from unstructured.partition.utils.lang import apply_lang_metadata
+from unstructured.partition.utils.text_type import (
     is_bulleted_text,
     is_email_address,
     is_possible_narrative_text,
@@ -56,7 +56,6 @@ def partition_text(
     max_partition: Optional[int] = 1500,
     min_partition: Optional[int] = 0,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     detect_language_per_element: bool = False,
     detection_origin: Optional[str] = "text",
     date_from_file_object: bool = False,
@@ -110,7 +109,6 @@ def partition_text(
         max_partition=max_partition,
         min_partition=min_partition,
         metadata_last_modified=metadata_last_modified,
-        chunking_strategy=chunking_strategy,
         detect_language_per_element=detect_language_per_element,
         detection_origin=detection_origin,
         date_from_file_object=date_from_file_object,
@@ -123,6 +121,7 @@ def partition_text(
 @add_chunking_strategy
 def _partition_text(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     text: Optional[str] = None,
     encoding: Optional[str] = None,
@@ -133,7 +132,6 @@ def _partition_text(
     max_partition: Optional[int] = 1500,
     min_partition: Optional[int] = 0,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     detect_language_per_element: bool = False,
     detection_origin: Optional[str] = "text",
     date_from_file_object: bool = False,

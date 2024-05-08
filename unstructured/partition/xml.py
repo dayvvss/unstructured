@@ -15,14 +15,14 @@ from unstructured.documents.elements import (
 )
 from unstructured.file_utils.encoding import read_txt_file
 from unstructured.file_utils.filetype import FileType, add_metadata_with_filetype
-from unstructured.partition.common import (
+from unstructured.partition.text import element_from_text
+from unstructured.partition.utils.common import (
     exactly_one,
     get_last_modified_date,
     get_last_modified_date_from_file,
     spooled_to_bytes_io_if_needed,
 )
-from unstructured.partition.lang import apply_lang_metadata
-from unstructured.partition.text import element_from_text
+from unstructured.partition.utils.lang import apply_lang_metadata
 
 DETECTION_ORIGIN: str = "xml"
 
@@ -79,6 +79,7 @@ def _get_leaf_elements(
 @add_chunking_strategy
 def partition_xml(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     text: Optional[str] = None,
     xml_keep_tags: bool = False,
@@ -87,7 +88,6 @@ def partition_xml(
     include_metadata: bool = True,
     encoding: Optional[str] = None,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     languages: Optional[list[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,

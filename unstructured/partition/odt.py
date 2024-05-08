@@ -5,8 +5,11 @@ from typing import IO, Any, Optional
 from unstructured.chunking import add_chunking_strategy
 from unstructured.documents.elements import Element, process_metadata
 from unstructured.file_utils.filetype import FileType, add_metadata_with_filetype
-from unstructured.partition.common import get_last_modified_date, get_last_modified_date_from_file
 from unstructured.partition.docx import convert_and_partition_docx
+from unstructured.partition.utils.common import (
+    get_last_modified_date,
+    get_last_modified_date_from_file,
+)
 
 
 @process_metadata()
@@ -14,12 +17,12 @@ from unstructured.partition.docx import convert_and_partition_docx
 @add_chunking_strategy
 def partition_odt(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     include_metadata: bool = True,
     infer_table_structure: bool = True,
     metadata_filename: Optional[str] = None,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     languages: Optional[list[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,

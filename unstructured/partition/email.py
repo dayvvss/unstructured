@@ -18,13 +18,13 @@ from unstructured.file_utils.encoding import (
     validate_encoding,
 )
 from unstructured.logger import logger
-from unstructured.partition.common import (
+from unstructured.partition.utils.common import (
     convert_to_bytes,
     exactly_one,
     get_last_modified_date,
     get_last_modified_date_from_file,
 )
-from unstructured.partition.lang import apply_lang_metadata
+from unstructured.partition.utils.lang import apply_lang_metadata
 
 if sys.version_info < (3, 8):
     from typing_extensions import Final
@@ -268,6 +268,7 @@ def parse_email(
 @add_chunking_strategy
 def partition_email(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     text: Optional[str] = None,
     content_source: str = "text/html",
@@ -280,7 +281,6 @@ def partition_email(
     process_attachments: bool = False,
     attachment_partitioner: Optional[Callable[..., list[Element]]] = None,
     min_partition: Optional[int] = 0,
-    chunking_strategy: Optional[str] = None,
     languages: Optional[list[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,

@@ -48,19 +48,6 @@ from unstructured.file_utils.filetype import (
 )
 from unstructured.logger import logger, trace_logger
 from unstructured.nlp.patterns import PARAGRAPH_PATTERN
-from unstructured.partition.common import (
-    convert_to_bytes,
-    document_to_element_list,
-    exactly_one,
-    get_last_modified_date,
-    get_last_modified_date_from_file,
-    ocr_data_to_elements,
-    spooled_to_bytes_io_if_needed,
-)
-from unstructured.partition.lang import (
-    check_language_args,
-    prepare_languages_for_tesseract,
-)
 from unstructured.partition.pdf_image.pdf_image_utils import (
     annotate_layout_elements,
     check_element_types_to_extract,
@@ -75,8 +62,16 @@ from unstructured.partition.pdf_image.pdfminer_utils import (
     open_pdfminer_pages_generator,
     rect_to_bbox,
 )
-from unstructured.partition.strategies import determine_pdf_or_image_strategy, validate_strategy
 from unstructured.partition.text import element_from_text
+from unstructured.partition.utils.common import (
+    convert_to_bytes,
+    document_to_element_list,
+    exactly_one,
+    get_last_modified_date,
+    get_last_modified_date_from_file,
+    ocr_data_to_elements,
+    spooled_to_bytes_io_if_needed,
+)
 from unstructured.partition.utils.config import env_config
 from unstructured.partition.utils.constants import (
     SORT_MODE_BASIC,
@@ -85,9 +80,17 @@ from unstructured.partition.utils.constants import (
     OCRMode,
     PartitionStrategy,
 )
+from unstructured.partition.utils.lang import (
+    check_language_args,
+    prepare_languages_for_tesseract,
+)
 from unstructured.partition.utils.sorting import (
     coord_has_valid_points,
     sort_page_elements,
+)
+from unstructured.partition.utils.strategies import (
+    determine_pdf_or_image_strategy,
+    validate_strategy,
 )
 from unstructured.patches.pdfminer import parse_keyword
 from unstructured.utils import requires_dependencies
@@ -118,6 +121,7 @@ def default_hi_res_model() -> str:
 @add_chunking_strategy
 def partition_pdf(
     filename: str = "",
+    *,
     file: Optional[IO[bytes]] = None,
     include_page_breaks: bool = False,
     strategy: str = PartitionStrategy.AUTO,
@@ -127,7 +131,6 @@ def partition_pdf(
     include_metadata: bool = True,  # used by decorator
     metadata_filename: Optional[str] = None,  # used by decorator
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,  # used by decorator
     links: Sequence[Link] = [],
     hi_res_model_name: Optional[str] = None,
     extract_images_in_pdf: bool = False,

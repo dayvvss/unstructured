@@ -9,12 +9,12 @@ from unstructured.chunking import add_chunking_strategy
 from unstructured.documents.elements import Element, process_metadata
 from unstructured.documents.xml import VALID_PARSERS
 from unstructured.file_utils.filetype import FileType, add_metadata_with_filetype
-from unstructured.partition.common import (
+from unstructured.partition.html import partition_html
+from unstructured.partition.utils.common import (
     exactly_one,
     get_last_modified_date,
     get_last_modified_date_from_file,
 )
-from unstructured.partition.html import partition_html
 
 
 def optional_decode(contents: Union[str, bytes]) -> str:
@@ -31,6 +31,7 @@ DETECTION_ORIGIN: str = "md"
 @add_chunking_strategy
 def partition_md(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     text: Optional[str] = None,
     url: Optional[str] = None,
@@ -39,7 +40,6 @@ def partition_md(
     parser: VALID_PARSERS = None,
     metadata_filename: Optional[str] = None,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     languages: Optional[list[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,

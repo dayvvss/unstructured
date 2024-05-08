@@ -7,13 +7,13 @@ from typing import IO, Any, Optional
 from unstructured.chunking import add_chunking_strategy
 from unstructured.documents.elements import Element, process_metadata
 from unstructured.file_utils.filetype import FileType, add_metadata_with_filetype
-from unstructured.partition.common import (
+from unstructured.partition.pptx import partition_pptx
+from unstructured.partition.utils.common import (
     convert_office_doc,
     exactly_one,
     get_last_modified_date,
     get_last_modified_date_from_file,
 )
-from unstructured.partition.pptx import partition_pptx
 
 
 @process_metadata()
@@ -21,13 +21,13 @@ from unstructured.partition.pptx import partition_pptx
 @add_chunking_strategy
 def partition_ppt(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     include_page_breaks: bool = False,
     include_metadata: bool = True,
     infer_table_structure: bool = True,
     metadata_filename: Optional[str] = None,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     languages: Optional[list[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,

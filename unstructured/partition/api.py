@@ -10,13 +10,14 @@ from unstructured_client.models import shared
 
 from unstructured.documents.elements import Element
 from unstructured.logger import logger
-from unstructured.partition.common import exactly_one
+from unstructured.partition.utils.common import exactly_one
 from unstructured.staging.base import elements_from_dicts, elements_from_json
 
 
 def partition_via_api(
     filename: Optional[str] = None,
     content_type: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     file_filename: Optional[str] = None,
     api_url: str = "https://api.unstructured.io/general/v0/general",

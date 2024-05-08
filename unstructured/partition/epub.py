@@ -6,7 +6,7 @@ from unstructured.chunking import add_chunking_strategy
 from unstructured.documents.elements import Element, process_metadata
 from unstructured.file_utils.filetype import FileType, add_metadata_with_filetype
 from unstructured.partition.html import convert_and_partition_html
-from unstructured.partition.lang import apply_lang_metadata
+from unstructured.partition.utils.lang import apply_lang_metadata
 
 DETECTION_ORIGIN: str = "epub"
 
@@ -16,12 +16,12 @@ DETECTION_ORIGIN: str = "epub"
 @add_chunking_strategy
 def partition_epub(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     include_page_breaks: bool = False,
     include_metadata: bool = True,
     metadata_filename: Optional[str] = None,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,
     languages: Optional[list[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,

@@ -56,13 +56,13 @@ from unstructured.documents.elements import (
     process_metadata,
 )
 from unstructured.file_utils.filetype import FileType, add_metadata_with_filetype
-from unstructured.partition.common import (
+from unstructured.partition.utils.common import (
     exactly_one,
     get_last_modified_date,
     get_last_modified_date_from_file,
 )
-from unstructured.partition.lang import apply_lang_metadata
-from unstructured.partition.text_type import (
+from unstructured.partition.utils.lang import apply_lang_metadata
+from unstructured.partition.utils.text_type import (
     is_bulleted_text,
     is_email_address,
     is_possible_narrative_text,
@@ -182,13 +182,13 @@ def convert_and_partition_docx(
 @add_chunking_strategy
 def partition_docx(
     filename: Optional[str] = None,
+    *,
     file: Optional[IO[bytes]] = None,
     metadata_filename: Optional[str] = None,
     include_page_breaks: bool = True,
     include_metadata: bool = True,  # used by decorator
     infer_table_structure: bool = True,
     metadata_last_modified: Optional[str] = None,
-    chunking_strategy: Optional[str] = None,  # used by decorator
     languages: Optional[List[str]] = ["auto"],
     detect_language_per_element: bool = False,
     date_from_file_object: bool = False,
