@@ -13,7 +13,7 @@ from PIL import ImageSequence
 
 from unstructured.documents.elements import ElementType
 from unstructured.metrics.table.table_formats import SimpleTableCell
-from unstructured.partition.pdf_image.pdf_image_utils import pad_element_bboxes, valid_text
+from unstructured.partition.pdf_image.pdf_image_utils import pad_element_bboxes
 from unstructured.partition.utils.config import env_config
 from unstructured.partition.utils.constants import OCR_AGENT_TESSERACT, OCRMode
 from unstructured.partition.utils.ocr_models.ocr_interface import OCRAgent
@@ -344,7 +344,7 @@ def merge_out_layout_with_ocr_layout(
     supplemented with the OCR layout.
     """
 
-    out_regions_without_text = [region for region in out_layout if not valid_text(region.text)]
+    out_regions_without_text = [region for region in out_layout if not region.text]
 
     for out_region in out_regions_without_text:
         out_region.text = aggregate_ocr_text_by_block(
