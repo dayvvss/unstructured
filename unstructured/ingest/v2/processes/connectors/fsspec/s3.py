@@ -165,5 +165,7 @@ add_source_entry(
 
 add_destination_entry(
     destination_type=CONNECTOR_TYPE,
-    entry=DestinationRegistryEntry(uploader=S3Upload, uploader_config=S3UploaderConfig),
+    entry=DestinationRegistryEntry(
+        uploader=S3Upload, uploader_config=S3UploaderConfig, connection_config=S3ConnectionConfig
+    ),
 )
