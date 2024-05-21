@@ -1,4 +1,4 @@
-## 0.14.1-dev1
+## 0.14.1-dev2
 
 * **Add support for Python 3.12**. `unstructured` now works with Python 3.12!
 
@@ -43,7 +43,7 @@
 * **Fix disk-space leak in `partition_odt()`.** Remove temporary file created but not removed when `file` argument is passed to `partition_odt()`.
 * **AstraDB: option to prevent indexing metadata**
 * **Fix Missing py.typed**
-  
+
 ## 0.13.7
 
 ### Enhancements
