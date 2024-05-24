@@ -1,4 +1,9 @@
-## 0.14.3-dev4
+## 0.14.3-dev5
+
+### Features
+
+### Fixes
+* **Adds ability to pass timeout for a request when partitioning via a `url` in `partition_html`.** `partition_html` accepts a new optional parameter `request_timeout` which if set will prevent `requests.get` from hanging indefinitely and instead will raise a timeout error. 
 
 ### Enhancements
 
