@@ -63,4 +63,4 @@ wrapt>=1.14.0
 
 
 # NOTE(robinson): for compatiblity with voyage embeddings
-langsmith==0.1.62
+langsmith==0.1.63
